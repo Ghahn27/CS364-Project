@@ -12,16 +12,44 @@
     <body>
         <h1>Dashboard</h1>
 
-        <div class = "welcome">
-
-            <div class="button-container">
-                
-            <button>Choose workout</button>
-            <button>Create new workout</button>
-            </element>
+        <div class="buttons">
             
+            <button class="create" onclick="location.href='workout-make.html'">Create Workout</button>
+            <div class="dropdown">
+                <button class="dropdownB" onclick="toggleDropdown()">Select Workout</button>
+                <div class="dropdown-Options" id="dropdownMenu">
+                    <div onclick="selectOption('Chest')">Chest</div>
+                    <div onclick="selectOption('Back')">Back</div>
+                    <div onclick="selectOption('Legs')">Legs</div>
+                </div>
+            </div>
+            <button class="progress" onclick="location.href='progress.html'">Progress</button>
         </div>
-        
+
+        <script>
+            function toggleDropdown() {
+                const menu = document.getElementById('dropdownMenu');
+                menu.classList.toggle('show');
+            }
+
+            function selectOption(value) {
+                document.querySelector('.dropdownB').textContent = value;
+                document.getElementById('dropdownMenu').classList.remove('show');
+            }
+
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
         
     </body>
 
