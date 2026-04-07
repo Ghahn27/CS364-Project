@@ -6,28 +6,34 @@
 <link rel="stylesheet" href="website.css">
 <!-- <script src="" defer></script> --> 
     </head>
+    <body>
+        <h3>Create Workout</h3>
+        <div style="text-align: center;">
+            <img src="Workoutimage.jpg" alt="photo" style="max-width: 500px; width: 100%;">
+        </div>
+        <div class="ExerciseForm">
+            <form>
+                <label for="ex1">Exercise 1</label>
+                <input type="text" id="ex1" name="exerciseone" placeholder="Input Exercise">
 
-    <div class="ExerciseForm">
-        <form>
-            <label for="ex1">Exercise one</label>
-            <input type="text" id="ex1" name="exerciseone" placeholder="First Exercise">
+                <label for="ex2">Exercise 2</label>
+                <input type="text" id="ex2" name="exercisetwo" placeholder="Input Exercise">
 
-            <label for="ex2">Exercise two</label>
-            <input type="text" id="ex2" name="exercisetwo" placeholder="First Exercise">
+                <label for="ex3">Exercise 3</label>
+                <input type="text" id="ex3" name="exercisethree" placeholder="Input Exercise">
 
-            <label for="ex3">Exercise three</label>
-            <input type="text" id="ex3" name="exercisethree" placeholder="First Exercise">
+                <label for="ex4">Exercise 4</label>
+                <input type="text" id="ex4" name="exercisefour" placeholder="Input Exercise">
 
-            <label for="ex4">Exercise four</label>
-            <input type="text" id="ex4" name="exercisefour" placeholder="First Exercise">
+                <button class="Addmore" onclick="addExercise()">+ Exercise</button>
+                <button class="Addmore" onclick="addExercise()">- Exercise</button>
 
-            <button class="Addmore" onclick="addExercise()">Add Exercise</button>
+                <!-- Need to have way to add more -->
 
-            <!-- Need to have way to add more -->
-
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </body>
 
     <script>
         function addExercise() {
