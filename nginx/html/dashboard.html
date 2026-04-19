@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="stylesheet" href="website.css">
+<script defer src="dashboard.js"></script>
+
+
+    </head>
+
+    <body>
+        <h1>Dashboard</h1>
+
+        <div class="buttons">
+            
+            <button class="create" onclick="location.href='workout-make.html'">Create Workout</button>
+            <div class="dropdown">
+                <button class="dropdownB" onclick="toggleDropdown()">Select Workout</button>
+                <div class="dropdown-Options" id="dropdownMenu">
+                    <div onclick="selectOption('Chest')">Chest</div>
+                    <div onclick="selectOption('Back')">Back</div>
+                    <div onclick="selectOption('Legs')">Legs</div>
+                </div>
+            </div>
+            <button class="progress" onclick="location.href='progress.html'">Progress</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody id="userList">
+                <!-- dashboard.js fills this in -->
+            </tbody>
+        </table>
+
+
+    </body>
+
+
+
+
+</html>

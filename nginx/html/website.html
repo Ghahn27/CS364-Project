@@ -1,0 +1,43 @@
+<!-- DOC STATEMENT
+ https://www.geeksforgeeks.org/html/how-to-link-a-button-to-another-page-in-html/
+ https://www.w3schools.com/howto/howto_js_dropdown.asp
+ https://www.geeksforgeeks.org/css/how-to-flex-start-items-at-the-beginning-of-the-container-using-css/
+ https://www.w3schools.com/cssref/pr_margin.php
+ https://stackoverflow.com/questions/17275707/how-do-i-evenly-add-space-between-a-label-and-the-input-field-regardless-of-leng
+
+--> 
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+<title>Workout Tracker</title>
+<link rel="stylesheet" href="website.css">
+<script src="website.js" defer></script>
+
+
+    </head>
+
+    <body>
+        <h1>Start tracking your workouts</h1>
+        <div>
+            <img src="download.webp" alt="photo" width="300">
+        </div>
+        <div class = "buttonweb">
+
+            <form id="login" onsubmit="login(event)">
+                <input id="username" name="username" placeholder="Enter Username">
+                <input id="password" name="password" placeholder="Enter Password">
+                <button type="submit">Login</button>
+            </form>
+            <h2>- or -</h2>
+            <button onclick="location.href='create-account.html'">Create new account</button>
+            
+        </div>   
+    </body>
+
+
+
+
+</html>

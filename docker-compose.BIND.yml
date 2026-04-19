@@ -1,0 +1,44 @@
+services:
+  nginx:
+    build: ./nginx                                  
+    container_name: CS364_Project_web
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html          
+
+  backend:
+    build: ./backend
+    container_name: CS364_Project_api
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  db:
+    image: postgres:latest
+    container_name: CS364_Project_db
+    env_file:
+      - .env
+    volumes:
+      - pgdata2:/var/lib/postgresql/data      
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mynetwork
+
+volumes:
+  pgdata2:
+
+networks:
+  mynetwork:
