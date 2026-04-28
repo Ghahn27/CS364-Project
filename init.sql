@@ -12,3 +12,10 @@ CREATE TABLE IF NOT EXISTS users (
 
 select * from users;
 
+CREATE TABLE IF NOT EXISTS workout (
+    id SERIAL PRIMARY KEY,
+    workoutname VARCHAR(100) NOT NULL
+);
+
+select * from workout;
+

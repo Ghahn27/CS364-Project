@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+<title>User Table Page</title>
+<link rel="stylesheet" href="website.css">
+<script defer src="usertablepage.js" ></script> 
+    </head>
+
+    <body>
+        <h1>User Table Page</h1>
+        <div class = "button">
+            <input id="limiter" name="limiter" placeholder="Limit Row Display">
+            <button onclick="DisplayTable()">Display Table</button>
+        </div>
+            <table id="display">
+                <thead id="Table" style="display: none;" >
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+            </table>
+        <div class = "button">
+            <form id="populatetable" onsubmit="PopulateTable(event)">
+                <input id="firstName" name="firstName" placeholder="Enter First Name">
+                <input id="lastName" name="lastName" placeholder="Enter Last Name">
+                <input id="email" name="email" placeholder="Enter E-mail">
+                <input id="username" name="username" placeholder="Create Username">
+                <input id="password" name="password" placeholder="Create Password">
+                <input id="role" name ="role" placeholder="Admin or User">
+                <button type="submit">Populate Table</button>
+            </form>
+            <button onclick="TruncateTable()">Truncate Table</button>
+            <button onclick="location.href='adminpage.html'">Back</button>
+        </div>
+    </body>
+</html>

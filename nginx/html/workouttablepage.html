@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+<title>Workout Table Page</title>
+<link rel="stylesheet" href="website.css">
+<script defer src="workouttablepage.js" ></script> 
+    </head>
+
+    <body>
+        <h1>Workout Table Page</h1>
+        <div class = "button">
+            <input id="limiter" name="limiter" placeholder="Limit Row Display">
+            <button onclick="DisplayTable()">Display Table</button>
+        </div>
+            <table id="display">
+                <thead id="Table" style="display: none;" >
+                    <tr>
+                        <th>Workout name</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+            </table>
+        <div class = "button">
+            <form id="populatetable" onsubmit="PopulateTable(event)">
+                <input id="firstName" name="workoutname" placeholder="Enter Workout Name">
+                <button type="submit">Populate Table</button>
+            </form>
+            <button onclick="TruncateTable()">Truncate Table</button>
+            <button onclick="location.href='adminpage.html'">Back</button>
+        </div>
+    </body>
+</html>
