@@ -11,7 +11,7 @@ function selectOption(value) {
 }
 
 window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
+    if (!event.target.matches('.dropdownB')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
         var i;
         for (i = 0; i < dropdowns.length; i++) {
@@ -37,6 +37,35 @@ async function checkAdmin(){
 
 checkAdmin();
 
+async function getWorkouts() {
+    try {
+        const response = await fetch("/api/workout", {
+            credentials: "include"
+        });
+
+        const workouts = await response.json();
+        console.log("Workouts:", workouts);
+
+        const menu = document.getElementById("dropdownMenu");
+
+        workouts.forEach(WO => {
+            const div = document.createElement("div");
+
+            const justName = WO.workoutname.split("_")[0];
+
+            div.textContent = justName;
+
+            div.onclick = () => selectOption(justName);
+
+            menu.appendChild(div);
+            
+        });
+    } catch (error) {
+        console.error("Could not get workout name", error);
+    }
+}
+
+getWorkouts();
 
 
 

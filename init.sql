@@ -13,8 +13,19 @@ CREATE TABLE IF NOT EXISTS users (
 select * from users;
 
 CREATE TABLE IF NOT EXISTS workout (
-    id SERIAL PRIMARY KEY,
-    workoutname VARCHAR(100) NOT NULL
+    workoutname VARCHAR(100) NOT NULL,
+    username VARCHAR (100) NOT NULL,
+    dtg TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY(username, workoutname)
+);
+
+CREATE TABLE IF NOT EXISTS exercise (
+    username VARCHAR(100) NOT NULL,
+    workoutname VARCHAR(100) NOT NULL,
+    exercise_name VARCHAR(100) NOT NULL,
+    numSets INT,
+    reps INT,
+    FOREIGN KEY (username, workoutname) REFERENCES workout(username, workoutname)
 );
 
 select * from workout;

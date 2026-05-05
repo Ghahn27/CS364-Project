@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
 <title>Create Workout</title>
 <link rel="stylesheet" href="website.css">
-<!-- <script src="" defer></script> --> 
+<script src="workout-make.js" defer></script>
     </head>
     <body>
         <h3>Create Workout</h3>
@@ -12,7 +12,11 @@
             <img src="Workoutimage.jpg" alt="photo" style="max-width: 500px; width: 100%;">
         </div>
         <div class="ExerciseForm">
-            <form>
+            <form onsubmit="submitWorkout(event)">
+
+                <label for="WOName">Workout Name</label>
+                <input type="text" id="WOName" name="workoutname" placeholder="Name your workout">
+
                 <label for="ex1">Exercise 1</label>
                 <input type="text" id="ex1" name="exerciseone" placeholder="Input Exercise">
 
@@ -25,10 +29,10 @@
                 <label for="ex4">Exercise 4</label>
                 <input type="text" id="ex4" name="exercisefour" placeholder="Input Exercise">
 
-                <button class="Addmore" onclick="addExercise()">+ Exercise</button>
-                <button class="Addmore" onclick="addExercise()">- Exercise</button>
+                <button type="button" class="Addmore" id="addEx" onclick="addExercise()">+ Exercise</button>
+                <button type="button" class="Addmore" id="subEx" onclick="removeExercise()">- Exercise</button>
 
-                <!-- Need to have way to add more -->
+              
 
                 <input type="submit" value="Submit">
             </form>
@@ -37,11 +41,6 @@
 
     <button onclick="location.href='dashboard.html'">Dashboard</button>
 
-    <script>
-        function addExercise() {
-
-        }
-    </script>
 
 
 </html>

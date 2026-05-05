@@ -21,6 +21,10 @@ body{
   background-color: #ccc;
 }
 
+#adminBtn {
+  margin-top: 15px;
+}
+
 .buttonweb {
   padding: 2rem;
   border-radius: 12px;
