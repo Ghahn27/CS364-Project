@@ -17,7 +17,7 @@ async function login(event) {
 
         const result = await response.json();
 
-        if (response.ok) {
+        if (response.ok && result.success) {
             // Redirect to the frontpage on successful login
             alert("user is logged in");
             window.location.href = "dashboard.html";

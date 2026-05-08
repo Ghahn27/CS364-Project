@@ -108,7 +108,7 @@ app.post("/api/users/populate", auth.ensureAdmin, async (req, res) => {
 
 app.get("/api/users", auth.ensureAdmin, async (req, res) => {
   console.log("in GET /users");
-  let limit = parseInt(req.query.limit);
+  let limit = parseInt(req.query.limit) || 100;
   const result = await pool.query("SELECT firstname, lastname, username, email, role FROM users LIMIT $1", [limit]);
   console.log(`GET /users rows: ${result.rows}`);
   res.json(result.rows);
@@ -124,9 +124,50 @@ app.delete("/api/users/truncate", auth.ensureAdmin, async (req, res) => {
   }
 });
 
-app.post("/api/workout", async (req, res) => {
+app.post("/api/workout/populate", auth.ensureAdmin, async (req, res) => {
 
-  const {workoutname , exercises } = req.body;
+  console.log("server.js: populate ");
+  const { workoutname } = req.body;
+
+  console.log(`server.js: add workout: ${workoutname}`);
+
+  const query = 'INSERT INTO workout (workoutname) VALUES ($1) RETURNING id';
+  const values = [workoutname];
+  console.log("trying query with these values...");
+  console.log(values);
+
+  try {
+    const result = await pool.query(query, values);
+    console.log("workout NOW added ... going to respond");
+    console.log(result);
+    res.json({ success: true, message: `${workoutname} workout added`, workoutname: `${workoutname}` }); 
+  } catch (error) {
+    console.log("in catch block of server.js/populate");
+    console.log(error);
+    res.json({ success: false, message: 'Workout already exists.' });
+  }
+});
+
+app.get("/api/workout", async (req , res) => {
+console.log("in GET /workout");
+  let limit = parseInt(req.query.limit) || 100;
+  const result = await pool.query("SELECT workoutname FROM workout LIMIT $1", [limit]);
+  console.log(`GET /workout rows: ${result.rows}`);
+  res.json(result.rows);
+});
+
+app.delete("/api/workout/truncate", auth.ensureAdmin, async (req, res) => {
+  try{
+  await pool.query("TRUNCATE TABLE exercise, workout RESTART IDENTITY");
+  res.json({ success: true, message: "Table Truncated"});
+  }catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Table Failed to Truncate"});
+  }
+});
+
+app.post("/api/exercise", async (req, res) => {
+  const {workoutname, numSets, reps, numWeight} = req.body;
   const username = req.session.user?.username;
 
   console.log(`server.js: add workout: ${workoutname}`);
@@ -135,21 +176,16 @@ app.post("/api/workout", async (req, res) => {
     return res.status(401).json({message: "Not logged in" });
   }
 
-  const timestamp = new Date().toISOString().replace(/[:.]/g,'-');
-  const workoutnameNew = `${workoutname}_${timestamp}`;
-
   try {
-    await pool.query (
-      "INSERT INTO workout (username, workoutname) VALUES ($1 , $2)",
-      [username, workoutnameNew]
+    await pool.query(
+      "INSERT INTO workout (workoutname) VALUES ($1) ON CONFLICT (workoutname) DO NOTHING",
+      [workoutname]
     );
 
-    for (const ex of exercises) {
-      await pool.query(
-        "INSERT INTO exercise (username, workoutname, exercise_name) VALUES ($1, $2, $3)",
-        [username, workoutnameNew, ex]
-      );
-    }
+    await pool.query (
+      "INSERT INTO exercise (username, workoutname, numsets, reps, numweight) VALUES ($1 , $2, $3, $4, $5)",
+      [username, workoutname, numSets, reps, numWeight]
+    );
 
     res.json({ success: true, message: "Workout Saved!" , workoutName: workoutname })
   } catch (error) {
@@ -158,37 +194,16 @@ app.post("/api/workout", async (req, res) => {
   }
 });
 
-app.get("/api/workout", async (req , res) => {
+app.get("/api/exercise", async (req , res) => {
   const username = req.session.user?.username;
-  if(!username) return res.status(401).json({ message: "Not logged in" });
-
-  const result = await pool.query(
-    "SELECT * FROM workout WHERE username = $1 ORDER BY dtg DESC",
-    [username]
-  );
-  res.json(result.rows);
-});
-
-app.get("/api/workout/exercise", async (req, res) => {
-  const username = req.session.user?.username;
-  const { workoutname } = req.query;
-  if(!username) return res.status(401).json({ message: "Not logged in"});
-
-  const result = await pool.query(
-    "SELECT * FROM exercise WHERE username = $1 AND workoutname = $2",
-    [username, workoutname] // Will need to fix to be time stamped 
-  );
-  res.json(result.rows);
-});
-
-app.delete("/api/workout/truncate", auth.ensureAdmin, async (req, res) => {
-  try{
-  await pool.query("TRUNCATE TABLE workout RESTART IDENTITY");
-  res.json({ success: true, message: "Table Truncated"});
-  }catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Table Failed to Truncate"});
+  if(!username) {
+    return res.status(401).json({message: "Not logged in" });
   }
+  const result = await pool.query (
+      "SELECT workoutname workoutname, numsets, reps, numweight, dtg FROM exercise WHERE username = $1 ORDER BY dtg DESC",
+      [username]
+    );
+  res.json(result.rows);
 });
 
 app.get("/api/logout", (req, res) => {
@@ -203,6 +218,5 @@ app.get("/api/session", (req, res) => {
         res.json({ loggedIn: false });
     }
 });
-
 
 app.listen(3000, () => console.log("Server running on port 3000"));

@@ -2,22 +2,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-<title>Progess</title>
-<link rel="stylesheet" href="website.css">
-<!-- <script src="" defer></script> --> 
+        <title>Progess</title>
+        <link rel="stylesheet" href="website.css">
+        <script src="progress.js" defer></script>
     </head>
-
-     <body>
+    <body>
         <h3>Progress</h3>
-        <div style="text-align: center;">
-            <img src="Workout log.jpg" alt="photo" style="max-width: 500px; width: 100%;">
+        <div class = "button">
+            <button onclick="DisplayTable()">Display workouts</button>
         </div>
-        <div style="text-align: center;">
-            <img src="Graph.png" alt="photo" style="max-width: 500px; width: 100%;">
-        </div>
+        <table id="display">
+            <thead id="Table" style="display: none;" >
+                <tr>
+                <th>Workout name</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Weight</th>
+                <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="data"></tbody>
+        </table>
+        <button onclick="location.href='dashboard.html'">Dashboard</button>
     </body>
-    <button onclick="location.href='dashboard.html'">Dashboard</button>
-
-    
-
 </html>
